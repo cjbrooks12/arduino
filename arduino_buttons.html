@@ -1,0 +1,141 @@
+<html>
+<head>
+    <title>Arduino Yun</title>
+    <style>
+    </style>
+
+    <script>
+        function lineRadioClick(obj) {
+            var text;
+
+            text = document.getElementById("lcd_text");
+
+            if (obj.value == -1) {
+                text.maxLength = 80;
+            }
+            else {
+                text.maxLength = 20;
+            }
+        }
+
+        function displayText(obj) {
+            var url, line, text;
+
+            line = document.querySelector('input[name="line"]:checked');
+            text = document.getElementById("lcd_text");
+
+            url = "http://192.168.1.10/arduino/lcd/write/" + line.value + "/" + text.value;
+
+            window.open(url, "frame");
+        }
+
+        function clearText(obj) {
+            var url, line, text;
+
+            line = document.querySelector('input[name="line"]:checked');
+            text = document.getElementById("lcd_text");
+            url = "http://192.168.1.10/arduino/lcd/clear/" + line.value;
+
+            window.open(url, "frame");
+        }
+
+        function displayColor(obj) {
+            var url, color;
+
+            color = document.getElementById("lcd_color");
+            url = "http://192.168.1.10/arduino/lcd/color/" + color.value.substring(1, 7);
+
+            window.open(url, "frame");
+        }
+
+        function displayRadioClick(obj) {
+            var mode, url;
+
+            mode = document.querySelector('input[name="mode"]:checked');
+
+            url = "http://192.168.1.10/arduino/function/" + mode.value;
+
+            window.open(url, "frame");
+        }
+    </script>
+
+</head>
+<body>
+    <p>
+        
+    </p>
+
+    <p>
+        <b>LCD Text</b>
+        <br />
+        <form>
+            Display Text
+            <br /> 
+            <textarea maxlength="20" id="lcd_text"></textarea><br />
+
+            <input type="radio" name="line" value="0" onClick="lineRadioClick(this)" />Line 1<br />
+            <input type="radio" name="line" value="1" onClick="lineRadioClick(this)" />Line 2<br />
+            <input type="radio" name="line" value="2" onClick="lineRadioClick(this)" />Line 3<br />
+            <input type="radio" name="line" value="3" onClick="lineRadioClick(this)" />Line 4<br />
+            <input type="radio" name="line" value="-1" onClick="lineRadioClick(this)" />Entire Display<br />
+            
+            <input type="button" onClick="displayText(this)" value="Submit">
+            <input type="button" onClick="clearText(this)" value="Clear">
+        </form>
+
+        <br />
+
+        <form>
+            Display Color
+            <br /> 
+            <input type="text" id="lcd_color" /><br />
+        
+            <input type="button" onClick="displayColor(this)" value="Submit">
+        </form>
+
+        <br />
+
+        <form>
+            Display Mode
+            <br /> 
+            <input type="radio" name="mode" value="2" onClick="displayRadioClick(this)" />Simple<br />
+            <input type="radio" name="mode" value="1" onClick="displayRadioClick(this)" />Crossfader<br />            
+        </form>
+    </p>
+
+    <p>
+        <b>Status LEDs</b>
+        <br />
+        <a href="http://192.168.1.10/arduino/status/1" target="frame"><input type="button" value="R1"/></a>
+        <a href="http://192.168.1.10/arduino/status/2" target="frame"><input type="button" value="G1"/></a>
+        <a href="http://192.168.1.10/arduino/status/4" target="frame"><input type="button" value="B1"/></a>
+        <a href="http://192.168.1.10/arduino/status/8" target="frame"><input type="button" value="R2"/></a>
+        <a href="http://192.168.1.10/arduino/status/16" target="frame"><input type="button" value="G2"/></a>
+        <a href="http://192.168.1.10/arduino/status/32" target="frame"><input type="button" value="B2"/></a>
+        <a href="http://192.168.1.10/arduino/status/64" target="frame"><input type="button" value="R3"/></a>
+        <a href="http://192.168.1.10/arduino/status/128" target="frame"><input type="button" value="G3"/></a>
+
+        <br />
+
+        <a href="http://192.168.1.10/arduino/status/9" target="frame"><input type="button" value="RR"/></a>
+        <a href="http://192.168.1.10/arduino/status/18" target="frame"><input type="button" value="GG"/></a>
+        <a href="http://192.168.1.10/arduino/status/36" target="frame"><input type="button" value="BB"/></a>
+
+        <br />
+        <a href="http://192.168.1.10/arduino/status/27" target="frame"><input type="button" value="YY"/></a>
+        <a href="http://192.168.1.10/arduino/status/45" target="frame"><input type="button" value="MM"/></a>
+        <a href="http://192.168.1.10/arduino/status/54" target="frame"><input type="button" value="CC"/></a>
+        <a href="http://192.168.1.10/arduino/status/63" target="frame"><input type="button" value="WW"/></a>
+
+        <br />
+        <a href="http://192.168.1.10/arduino/status/84" target="frame"><input type="button" value="RGB"/></a>
+        <a href="http://192.168.1.10/arduino/status/238" target="frame"><input type="button" value="YMC"/></a>
+
+        <br />
+        <a href="http://192.168.1.10/arduino/status/255" target="frame"><input type="button" value="ALL ON"/></a>
+        <a href="http://192.168.1.10/arduino/status/0" target="frame"><input type="button" value="ALL OFF"/></a>
+    </p>
+    <iframe name="frame"></iframe>
+</body>
+
+</html>
